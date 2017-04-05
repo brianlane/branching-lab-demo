@@ -15,7 +15,7 @@ import java.net.Socket;
 
 public class Server {
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws ClassNotFoundException {
 
     try {
       // Create a ServerSocket and wait for a Client to connect
@@ -28,7 +28,17 @@ public class Server {
       // TODO: Add a loop that reads from one connected client and
       // write backs "Hello Client".  Write back Goodbye to terminate
       // both the client and server.  Print whatever the Client writes.
-      
+      int count = 0;
+      while (true) {
+    	  String message = (String) input.readObject();
+    	  System.out.println(message);
+    	  if (count == 5) {
+    		  output.writeObject("Goodbye");
+    		  break;
+    	  }
+    	  output.writeObject("Hello Client");
+    	  count++;
+      }
       
       // Close the connection
       connection.close();
